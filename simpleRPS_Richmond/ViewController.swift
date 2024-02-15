@@ -22,6 +22,9 @@ class ViewController: UIViewController {
         savePlay(.scissors, player: "jobs", round: 10, gameName: "Baller")
         savePlay(.paper, player: "jobs", round: 11, gameName: "Baller")
         
+        pullHistory(forGame: "Baller")
+        print(currentGameHistory)
+        
     }
     
     func savePlay(_ play: Play, player: String, round: Int, gameName: String) {
@@ -30,8 +33,12 @@ class ViewController: UIViewController {
             
             
             
-            reference.child(gameName).child("Round: \(round)").removeAllObservers()
+            self.reference.child(gameName).child("Round: \(round)").removeAllObservers()
         })
+    }
+    
+    func pullHistory(forGame: String) {
+        currentGameHistory = reference.value(forKey: forGame) as! NSDictionary
     }
 
     func eval(p1: Play, p2: Play) -> Result {
