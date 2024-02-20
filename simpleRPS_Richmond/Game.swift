@@ -45,10 +45,10 @@ struct Game {
     }
     
     func waitForPlay() {
-        Game.reference.child(gameName).child("Round: \(round)").child(players[1]).observe(.childAdded, with: { (snapshot) in
+        Game.reference.child(gameName).child("Round: \(round)").observe(.childAdded, with: { (snapshot) in
             print("other player did thing")
             
-            Game.reference.child(gameName).child("Round: \(round)").child(players[1]).removeAllObservers()
+            //Game.reference.child(gameName).child("Round: \(round)").child(players[1]).removeAllObservers()
         })
     }
     
