@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         var currentGame = Game.startGame(gameName: "Game1", players: ["steve", "jobs"])
         
         currentGame.play(.rock, player: "steve")
+        currentGame.play(.paper, player: "jobs")
     }
     
     func savePlay(_ play: Play, player: String, round: Int, gameName: String) {

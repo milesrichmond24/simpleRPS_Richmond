@@ -26,19 +26,30 @@ struct Game {
     }
     
     mutating func play(_ play: Play, player: String) {
-        if(player == players[playerCurrent]) {
+        if(player != players[playerCurrent]) {
             print("incorrect player")
             return
         }
         
         Game.reference.child(gameName).child("Round: \(round)").child(player).setValue("\(play)")
         
+        print("\(player) vs \(players[0])")
         if(player == players[1]) {
             round += 1
             playerCurrent = 0
-        } else {
+        } else if(player == players[0]){
+            print("doing thing")
+            waitForPlay()
             playerCurrent = 1
         }
+    }
+    
+    func waitForPlay() {
+        Game.reference.child(gameName).child("Round: \(round)").child(players[1]).observe(.childAdded, with: { (snapshot) in
+            print("other player did thing")
+            
+            Game.reference.child(gameName).child("Round: \(round)").child(players[1]).removeAllObservers()
+        })
     }
     
     func save() {
@@ -57,6 +68,6 @@ struct Game {
         reference.child(gameName).child("players").child("player1").setValue(players[0])
         reference.child(gameName).child("players").child("player2").setValue(players[1])
         
-        return Game(gameName: gameName, players: ["Steve", "Jobs"])
+        return Game(gameName: gameName, players: players)
     }
 }
