@@ -18,13 +18,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        savePlay(.paper, player: "steve", round: 10, gameName: "Baller")
-        savePlay(.scissors, player: "jobs", round: 10, gameName: "Baller")
-        savePlay(.paper, player: "jobs", round: 11, gameName: "Baller")
+        var currentGame = Game.startGame(gameName: "Game1", players: ["steve", "jobs"])
         
-        pullHistory(forGame: "Baller")
-        print(currentGameHistory)
-        
+        currentGame.play(.rock, player: "steve")
     }
     
     func savePlay(_ play: Play, player: String, round: Int, gameName: String) {
@@ -72,6 +68,14 @@ class ViewController: UIViewController {
     }
     
 }
+
+/*
+struct Game {
+    var name: String
+    var player1: String
+    var player2: String
+}
+ */
 
 enum Play: CustomStringConvertible {
     case rock
