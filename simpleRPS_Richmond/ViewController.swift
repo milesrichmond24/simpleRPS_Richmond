@@ -20,11 +20,15 @@ class ViewController: UIViewController {
         
         var currentGame = Game.startGame(gameName: "Game1", players: ["steve", "jobs"])
         
+        currentGame.play(.scissors, player: "jobs")
         currentGame.play(.rock, player: "steve")
         
         DispatchQueue.main.async {
-            sleep(5)
+            sleep(2)
             currentGame.play(.paper, player: "jobs")
+            
+            var gotten = Game.getGame(gameName: "Game1")
+            
         }
     }
     
