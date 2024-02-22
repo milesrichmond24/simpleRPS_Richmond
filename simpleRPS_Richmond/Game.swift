@@ -76,8 +76,15 @@ struct Game {
     }
     
     static func getGame(gameName: String) {
-        let playersList = reference.child(gameName).value(forKey: "players") as! NSDictionary
-        /*var game = Game(gameName: gameName, players: [playersList["player1"] as! String, playersList["player2"] as! String])
+        print("getting game")
+        var playerList: [String] = []
+        
+        reference.child(gameName).child("players").observe(.childAdded, with: { {snapshot} in
+            playerList.append("test")
+            print(playerList)
+        })
+        
+        var game = Game(gameName: gameName, players: [p1, p2])
         
         let data = reference.value(forKey: gameName) as! [String : Any]
         
@@ -94,7 +101,6 @@ struct Game {
         
         game.round = (data.count - 1) / 2
         game.playerCurrent = (data.count - 1) % 2
-        */
         
         return
     }
